@@ -1,13 +1,24 @@
 examplegrid = [
-    [0, 0, 4, 0, 6, 0, 0, 0, 5],
-    [7, 8, 0, 4, 0, 0, 0, 2, 0],
-    [0, 0, 2, 6, 0, 1, 0, 7, 8],
-    [6, 1, 0, 0, 7, 5, 0, 0, 9],
-    [0, 0, 7, 5, 4, 0, 0, 6, 1],
-    [0, 0, 1, 7, 5, 0, 9, 3, 0],
-    [0, 7, 0, 3, 0, 0, 0, 1, 0],
-    [0, 4, 0, 2, 0, 6, 0, 0, 7],
-    [0, 2, 0, 0, 0, 7, 4, 0, 0],
+    [5, 3, 0, 0, 7, 0, 0, 0, 0],
+    [6, 0, 0, 1, 9, 5, 0, 0, 0],
+    [0, 9, 8, 0, 0, 0, 0, 6, 0],
+    [8, 0, 0, 0, 6, 0, 0, 0, 3],
+    [4, 0, 0, 8, 0, 3, 0, 0, 1],
+    [7, 0, 0, 0, 2, 0, 0, 0, 6],
+    [0, 6, 0, 0, 0, 0, 2, 8, 0],
+    [0, 0, 0, 4, 1, 9, 0, 0, 5],
+    [0, 0, 0, 0, 8, 0, 0, 7, 9]
+]
+won_grid = [
+    [5, 3, 4, 6, 7, 8, 9, 1, 2],
+    [6, 7, 2, 1, 9, 5, 3, 4, 8],
+    [1, 9, 8, 3, 4, 2, 5, 6, 7],
+    [8, 5, 9, 7, 6, 1, 4, 2, 3],
+    [4, 2, 6, 8, 5, 3, 7, 9, 1],
+    [7, 1, 3, 9, 2, 4, 8, 5, 6],
+    [9, 6, 1, 5, 3, 7, 2, 8, 4],
+    [2, 8, 7, 4, 1, 9, 6, 3, 5],
+    [3, 4, 5, 2, 8, 6, 1, 7, 9]
 ]
 
 def solveboard(grid):
@@ -41,31 +52,17 @@ def solveboard(grid):
             return False
         return solve(row, col + 1)
 
-    return solve(0, 0)
+    if solve(0, 0):
+        return grid
+    else:
+        return "No Solution"
 
-if solveboard(examplegrid):
-    for row in examplegrid:
+
+solution = solveboard(examplegrid)
+if solution != "No Solution":
+    for row in solution:
         print(row)
 else:
-    print("No Solution")
-   
-print(examplegrid)
-print("helele ")
+    print(solution)
 
-
-
-    # def backtrack(grid):
-    #     for row in range(9):
-    #         for col in range(9):
-    #             if grid[row][col] == "0":
-    #                 for num in "123456789":
-    #                     if isvalid(grid, row, col, num):
-    #                         grid[row][col] = num
-
-    #                         if backtrack(grid):
-    #                             return True
-    #                         grid[row][col] = "0"
-    #                 return False
-    #     return True
-    
-    # return backtrack(grid)
+print(solution)
