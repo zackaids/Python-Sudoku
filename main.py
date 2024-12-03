@@ -1,10 +1,9 @@
-from solver import getgrids
+from solver import readrandomdata, solveboard
+import copy
 
 filepath = "sudoku_boards_unsolved.txt"
-unsolvedgrid, solvedgrid = getgrids(filepath)
-print(unsolvedgrid)
-print(solvedgrid)
-
+unsolvedgrid = readrandomdata(filepath)
+solvedgrid = solveboard(copy.deepcopy(unsolvedgrid))
 
 def main(grid, solvedgrid):
     state = checkgame(grid, solvedgrid)

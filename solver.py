@@ -1,4 +1,5 @@
 import random
+import copy
 
 # solver
 def solveboard(grid):
@@ -45,15 +46,6 @@ def readrandomdata(filepath):
 
     grid = [[int(data[i * 9 + j]) for j in range(9)] for i in range(9)]
     return grid
-
-def getgrids(filepath):
-    unsolvedgrid = readrandomdata(filepath)
-    tempgrid = unsolvedgrid
-    solvedgrid = solveboard(tempgrid)
-    return unsolvedgrid, solvedgrid
-
-
-# filepath = "sudoku_boards_unsolved.txt"
 
 # unsolvedgrid = readrandomdata(filepath)
 # print("Unsolved Sudoku Grid:")
