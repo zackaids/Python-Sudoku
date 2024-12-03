@@ -40,7 +40,7 @@ def main(grid):
     while state == False:
         changecell(grid, original_set)
         state = checkgame(grid)
-    print("Congratulations, you have won")
+    print("Congratulations, you have won!")
 
 # function for win con
 def checkgame(grid):
@@ -67,37 +67,40 @@ def checkgame(grid):
 
 # function to check if valid
 def checkgrid(grid):
-    myset = set()
-    for i, row in enumerate(grid):
-        for j, cell in enumerate(row):
-            if cell != 0:
-                myset.add((i, j))
-    return myset
+    return {(i, j) for i, row in enumerate(grid) for j, cell in enumerate(row) if cell != 0}
 
 # function to show the board
 def displayboard(grid):
-    for row in grid:
-        print(" ".join(str(cell) for cell in row))
-        
+    print("    1 2 3   4 5 6   7 8 9 ")
+    print("  +-------+-------+-------+")
+    for i, row in enumerate(grid):
+        row_display = f"{i+1} | "
+        for j, cell in enumerate(row):
+            if j > 0 and j % 3 == 0:
+                row_display += "| "
+            row_display += f"{cell if cell != 0 else '.'} "
+        row_display += "|"
+        print(row_display)
+        if i > 0 and (i + 1) % 3 == 0:
+            print("  +-------+-------+-------+")
+    print("")
 
 # function to interact with the board
 def choosecell():
     while True:
         try:
-            print("Enter the row (1-9): ")
-            row = int(input()) - 1
+            row = int(input("Enter the row (1-9): ")) - 1
             if not (0 <= row < 9):
                 raise ValueError
-            print("Enter the column (1-9): ")
-            col = int(input()) - 1
+            col = int(input("Enter the column (1-9): ")) - 1
             if not (0 <= col < 9):
                 raise ValueError
             return row, col
         except ValueError:
             print("Invalid input. Please enter a number between 1 and 9.")
 
+# function to change a cell
 def changecell(grid, myset):
-
     displayboard(grid)
     while True:
         row, col = choosecell()
@@ -108,11 +111,10 @@ def changecell(grid, myset):
 
     while True:
         try:
-            print("Please input a number (1-9): ")
-            choice = int(input())
+            choice = int(input("Please input a number (1-9): "))
             if not (1 <= choice <= 9):
                 raise ValueError
-            break 
+            break
         except ValueError:
             print("Invalid input. Please enter an integer between 1 and 9.")
     
@@ -121,5 +123,4 @@ def changecell(grid, myset):
 
     return grid
 
-    
-main(examplegrid)
+main(examplegrid1)
