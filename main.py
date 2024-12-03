@@ -1,13 +1,25 @@
 examplegrid = [
-    [0, 0, 4, 0, 6, 0, 0, 0, 5],
-    [7, 8, 0, 4, 0, 0, 0, 2, 0],
-    [0, 0, 2, 6, 0, 1, 0, 7, 8],
-    [6, 1, 0, 0, 7, 5, 0, 0, 9],
-    [0, 0, 7, 5, 4, 0, 0, 6, 1],
-    [0, 0, 1, 7, 5, 0, 9, 3, 0],
-    [0, 7, 0, 3, 0, 0, 0, 1, 0],
-    [0, 4, 0, 2, 0, 6, 0, 0, 7],
-    [0, 2, 0, 0, 0, 7, 4, 0, 0],
+    [5, 3, 0, 0, 7, 0, 0, 0, 0],
+    [6, 0, 0, 1, 9, 5, 0, 0, 0],
+    [0, 9, 8, 0, 0, 0, 0, 6, 0],
+    [8, 0, 0, 0, 6, 0, 0, 0, 3],
+    [4, 0, 0, 8, 0, 3, 0, 0, 1],
+    [7, 0, 0, 0, 2, 0, 0, 0, 6],
+    [0, 6, 0, 0, 0, 0, 2, 8, 0],
+    [0, 0, 0, 4, 1, 9, 0, 0, 5],
+    [0, 0, 0, 0, 8, 0, 0, 7, 9]
+]
+
+examplegrid1 = [
+    [5, 3, 4, 6, 7, 8, 9, 1, 2],
+    [6, 7, 2, 1, 9, 5, 3, 4, 8],
+    [1, 9, 8, 3, 4, 2, 5, 6, 7],
+    [8, 5, 9, 7, 6, 1, 4, 2, 3],
+    [4, 2, 6, 8, 5, 3, 7, 9, 1],
+    [7, 1, 3, 9, 2, 4, 8, 5, 6],
+    [9, 6, 1, 5, 3, 7, 2, 8, 0],
+    [2, 8, 7, 4, 1, 9, 6, 3, 5],
+    [3, 4, 5, 2, 8, 6, 1, 7, 9]
 ]
 
 won_grid = [
@@ -19,7 +31,7 @@ won_grid = [
     [7, 1, 3, 9, 2, 4, 8, 5, 6],
     [9, 6, 1, 5, 3, 7, 2, 8, 4],
     [2, 8, 7, 4, 1, 9, 6, 3, 5],
-    [3, 4, 5, 2, 8, 6, 1, 7, 9],
+    [3, 4, 5, 2, 8, 6, 1, 7, 9]
 ]
 
 def main(grid):
@@ -27,7 +39,8 @@ def main(grid):
     original_set = checkgrid(grid)
     while state == False:
         changecell(grid, original_set)
-    print("congrats, you won")
+        state = checkgame(grid)
+    print("Congratulations, you have won")
 
 # function for win con
 def checkgame(grid):
@@ -69,26 +82,44 @@ def displayboard(grid):
 
 # function to interact with the board
 def choosecell():
-    print("Enter the row: ")
-    row = int(input()) - 1
-    print("Enter the column: ")
-    col = int(input()) - 1
-    return row, col
+    while True:
+        try:
+            print("Enter the row (1-9): ")
+            row = int(input()) - 1
+            if not (0 <= row < 9):
+                raise ValueError
+            print("Enter the column (1-9): ")
+            col = int(input()) - 1
+            if not (0 <= col < 9):
+                raise ValueError
+            return row, col
+        except ValueError:
+            print("Invalid input. Please enter a number between 1 and 9.")
 
 def changecell(grid, myset):
 
     displayboard(grid)
-    row, col = choosecell()
+    while True:
+        row, col = choosecell()
+        if (row, col) in myset:
+            print("This cell is part of the original puzzle, choose another one")
+        else:
+            break
 
-    if (row, col) in myset:
-        print("This cell is part of the og, choose another one")
-        changecell(myset)
-    else:
-        print("please input")
-        choice = int(input())
-        grid[row][col] = choice
-        print("success")
+    while True:
+        try:
+            print("Please input a number (1-9): ")
+            choice = int(input())
+            if not (1 <= choice <= 9):
+                raise ValueError
+            break 
+        except ValueError:
+            print("Invalid input. Please enter an integer between 1 and 9.")
+    
+    grid[row][col] = choice
+    print("Success")
 
     return grid
+
     
 main(examplegrid)
